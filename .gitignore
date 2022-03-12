@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.next
+.DS_Store
+package-lock.json
+.env.local
+.env.production
