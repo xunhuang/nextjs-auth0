@@ -1,11 +1,12 @@
-import React from 'react';
 import { UserProfile, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import React from 'react';
 
 import Layout from '../components/layout';
 
 type ProfileProps = { user: UserProfile };
 
 export default function Profile({ user }: ProfileProps): React.ReactElement {
+  // console.log(user);
   return (
     <Layout>
       <h1>Profile</h1>

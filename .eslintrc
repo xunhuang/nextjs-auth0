@@ -6,8 +6,8 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:react/recommended"
+    // "plugin:prettier/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -45,7 +45,7 @@
   "plugins": [
     "import",
     "@typescript-eslint",
-    "react",
-    "prettier"
+    "react"
+    // "prettier"
   ]
 }

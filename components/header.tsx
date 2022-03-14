@@ -1,9 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0';
+import Link from 'next/link';
+import React from 'react';
 
 const Header = (): React.ReactElement => {
   const { user } = useUser();
+  if (user) {
+    console.log(user);
+  }
 
   return (
     <header>
