@@ -1,6 +1,5 @@
 const express = require('express');
 const next = require('next');
-const oidc = require('./oidc-provider');
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: true });
@@ -8,8 +7,7 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
- 
-  server.use('/oidc', oidc({}).callback());
+
 
   server.all('*', (req, res) => {
     return handle(req, res);
