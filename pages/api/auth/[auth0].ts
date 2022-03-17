@@ -1,13 +1,41 @@
 // import { handleAuth } from '@auth0/nextjs-auth0';
 // export default handleAuth();
 import { handleAuth, handleCallback } from '@auth0/nextjs-auth0';
+import { PrismaClient } from '@prisma/client';
 
-const afterCallback = (req, res, session) => {
-    if (!session.user.isAdmin) {
-        // throw new UnauthorizedError('User is not admin');
-        console.log('whatever');
+const prisma = new PrismaClient();
+
+const createUserIfNew = async (user: any) => {
+    const existingUser = await prisma.user.findUnique({
+        where: {
+            email: user.email
+        },
+        select: {
+            email: true
+        }
+    });
+
+    if (!existingUser) {
+        console.log("new user");
+        console.dir(user, { depth: null })
+        const newuser = await prisma.user.create({
+            data: {
+                email: user.email,
+                name: user.name,
+                profilePic: user.picture,
+            },
+        });
+        console.dir(newuser, { depth: null })
     }
-    console.log(session);
+
+    // use `console.dir` to print nested objects
+    console.dir(existingUser, { depth: null })
+}
+
+const afterCallback = async (req, res, session) => {
+    if (session.user) {
+        createUserIfNew(session.user);
+    }
     return session;
 };
 

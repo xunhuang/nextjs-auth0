@@ -7,6 +7,7 @@ import useAccessToken from './use-accesstoken';
 // export default withPageAuthRequired(function Profile({ user, session }) {
 export default withPageAuthRequired(function Profile(p) {
   const { accessToken } = useAccessToken();
+
   // const session = useSession();
   // console.log(session);
   console.log(accessToken);
