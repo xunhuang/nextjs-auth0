@@ -46,35 +46,6 @@ type Query implements Node {
     condition: PostCondition
   ): PostsConnection
 
-  """Reads and enables pagination through a set of `Profile`."""
-  allProfiles(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ProfileCondition
-  ): ProfilesConnection
-
   """Reads and enables pagination through a set of `User`."""
   allUsers(
     """Only read the first `n` values of the set."""
@@ -133,7 +104,6 @@ type Query implements Node {
     condition: _PrismaMigrationCondition
   ): _PrismaMigrationsConnection
   postById(id: Int!): Post
-  profileById(id: Int!): Profile
   userById(id: Int!): User
   _prismaMigrationById(id: String!): _PrismaMigration
 
@@ -142,12 +112,6 @@ type Query implements Node {
     """The globally unique `ID` to be used in selecting a single `Post`."""
     nodeId: ID!
   ): Post
-
-  """Reads a single `Profile` using its globally unique `ID`."""
-  profile(
-    """The globally unique `ID` to be used in selecting a single `Profile`."""
-    nodeId: ID!
-  ): Profile
 
   """Reads a single `User` using its globally unique `ID`."""
   user(
@@ -197,10 +161,9 @@ type Post implements Node {
   id: Int!
   createdAt: Datetime!
   updatedAt: Datetime!
-  title: String!
   published: Boolean!
-  authorId: Int!
-  content: String
+  title: String!
+  authorId: Int
 
   """Reads a single `User` that is related to this `Post`."""
   userByAuthorId: User
@@ -218,8 +181,11 @@ type User implements Node {
   """
   nodeId: ID!
   id: Int!
+  createdAt: Datetime!
   email: String!
   name: String
+  role: Role!
+  profilePic: String
 
   """Reads and enables pagination through a set of `Post`."""
   postsByAuthorId(
@@ -249,35 +215,11 @@ type User implements Node {
     """
     condition: PostCondition
   ): PostsConnection!
+}
 
-  """Reads and enables pagination through a set of `Profile`."""
-  profilesByUserId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ProfileCondition
-  ): ProfilesConnection!
+enum Role {
+  USER
+  ADMIN
 }
 
 """A location in a connection that can be used for resuming pagination."""
@@ -292,14 +234,12 @@ enum PostsOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
-  TITLE_ASC
-  TITLE_DESC
   PUBLISHED_ASC
   PUBLISHED_DESC
+  TITLE_ASC
+  TITLE_DESC
   AUTHOR_ID_ASC
   AUTHOR_ID_DESC
-  CONTENT_ASC
-  CONTENT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -317,56 +257,23 @@ input PostCondition {
   """Checks for equality with the object’s `updatedAt` field."""
   updatedAt: Datetime
 
-  """Checks for equality with the object’s `title` field."""
-  title: String
-
   """Checks for equality with the object’s `published` field."""
   published: Boolean
 
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
   """Checks for equality with the object’s `authorId` field."""
   authorId: Int
-
-  """Checks for equality with the object’s `content` field."""
-  content: String
 }
 
-"""A connection to a list of `Profile` values."""
-type ProfilesConnection {
-  """A list of `Profile` objects."""
-  nodes: [Profile!]!
-
-  """
-  A list of edges which contains the `Profile` and cursor to aid in pagination.
-  """
-  edges: [ProfilesEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Profile` you could get from the connection."""
-  totalCount: Int!
-}
-
-type Profile implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  bio: String
-  userId: Int!
-
-  """Reads a single `User` that is related to this `Profile`."""
-  userByUserId: User
-}
-
-"""A `Profile` edge in the connection."""
-type ProfilesEdge {
+"""A `Post` edge in the connection."""
+type PostsEdge {
   """A cursor for use in pagination."""
   cursor: Cursor
 
-  """The `Profile` at the end of the edge."""
-  node: Profile!
+  """The `Post` at the end of the edge."""
+  node: Post!
 }
 
 """Information about pagination in a connection."""
@@ -382,42 +289,6 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: Cursor
-}
-
-"""Methods to use when ordering `Profile`."""
-enum ProfilesOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  BIO_ASC
-  BIO_DESC
-  USER_ID_ASC
-  USER_ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `Profile` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input ProfileCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
-
-  """Checks for equality with the object’s `bio` field."""
-  bio: String
-
-  """Checks for equality with the object’s `userId` field."""
-  userId: Int
-}
-
-"""A `Post` edge in the connection."""
-type PostsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Post` at the end of the edge."""
-  node: Post!
 }
 
 """A connection to a list of `User` values."""
@@ -451,10 +322,16 @@ enum UsersOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
   EMAIL_ASC
   EMAIL_DESC
   NAME_ASC
   NAME_DESC
+  ROLE_ASC
+  ROLE_DESC
+  PROFILE_PIC_ASC
+  PROFILE_PIC_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -466,11 +343,20 @@ input UserCondition {
   """Checks for equality with the object’s `id` field."""
   id: Int
 
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
   """Checks for equality with the object’s `email` field."""
   email: String
 
   """Checks for equality with the object’s `name` field."""
   name: String
+
+  """Checks for equality with the object’s `role` field."""
+  role: Role
+
+  """Checks for equality with the object’s `profilePic` field."""
+  profilePic: String
 }
 
 """A connection to a list of `_PrismaMigration` values."""
@@ -581,14 +467,6 @@ type Mutation {
     input: CreatePostInput!
   ): CreatePostPayload
 
-  """Creates a single `Profile`."""
-  createProfile(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateProfileInput!
-  ): CreateProfilePayload
-
   """Creates a single `User`."""
   createUser(
     """
@@ -620,22 +498,6 @@ type Mutation {
     """
     input: UpdatePostByIdInput!
   ): UpdatePostPayload
-
-  """Updates a single `Profile` using its globally unique id and a patch."""
-  updateProfile(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateProfileInput!
-  ): UpdateProfilePayload
-
-  """Updates a single `Profile` using a unique key and a patch."""
-  updateProfileById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateProfileByIdInput!
-  ): UpdateProfilePayload
 
   """Updates a single `User` using its globally unique id and a patch."""
   updateUser(
@@ -686,22 +548,6 @@ type Mutation {
     """
     input: DeletePostByIdInput!
   ): DeletePostPayload
-
-  """Deletes a single `Profile` using its globally unique id."""
-  deleteProfile(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteProfileInput!
-  ): DeleteProfilePayload
-
-  """Deletes a single `Profile` using a unique key."""
-  deleteProfileById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteProfileByIdInput!
-  ): DeleteProfilePayload
 
   """Deletes a single `User` using its globally unique id."""
   deleteUser(
@@ -779,55 +625,9 @@ input PostInput {
   id: Int
   createdAt: Datetime
   updatedAt: Datetime!
-  title: String!
   published: Boolean
-  authorId: Int!
-  content: String
-}
-
-"""The output of our create `Profile` mutation."""
-type CreateProfilePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Profile` that was created by this mutation."""
-  profile: Profile
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Profile`."""
-  userByUserId: User
-
-  """An edge for our `Profile`. May be used by Relay 1."""
-  profileEdge(
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProfilesEdge
-}
-
-"""All input for the create `Profile` mutation."""
-input CreateProfileInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Profile` to be created by this mutation."""
-  profile: ProfileInput!
-}
-
-"""An input for mutations affecting `Profile`"""
-input ProfileInput {
-  id: Int
-  bio: String
-  userId: Int!
+  title: String!
+  authorId: Int
 }
 
 """The output of our create `User` mutation."""
@@ -868,8 +668,11 @@ input CreateUserInput {
 """An input for mutations affecting `User`"""
 input UserInput {
   id: Int
+  createdAt: Datetime
   email: String!
   name: String
+  role: Role
+  profilePic: String
 }
 
 """The output of our create `_PrismaMigration` mutation."""
@@ -969,10 +772,9 @@ input PostPatch {
   id: Int
   createdAt: Datetime
   updatedAt: Datetime
-  title: String
   published: Boolean
+  title: String
   authorId: Int
-  content: String
 }
 
 """All input for the `updatePostById` mutation."""
@@ -987,75 +789,6 @@ input UpdatePostByIdInput {
   An object where the defined keys will be set on the `Post` being updated.
   """
   postPatch: PostPatch!
-  id: Int!
-}
-
-"""The output of our update `Profile` mutation."""
-type UpdateProfilePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Profile` that was updated by this mutation."""
-  profile: Profile
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Profile`."""
-  userByUserId: User
-
-  """An edge for our `Profile`. May be used by Relay 1."""
-  profileEdge(
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProfilesEdge
-}
-
-"""All input for the `updateProfile` mutation."""
-input UpdateProfileInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Profile` to be updated.
-  """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Profile` being updated.
-  """
-  profilePatch: ProfilePatch!
-}
-
-"""
-Represents an update to a `Profile`. Fields that are set will be updated.
-"""
-input ProfilePatch {
-  id: Int
-  bio: String
-  userId: Int
-}
-
-"""All input for the `updateProfileById` mutation."""
-input UpdateProfileByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Profile` being updated.
-  """
-  profilePatch: ProfilePatch!
   id: Int!
 }
 
@@ -1104,8 +837,11 @@ input UpdateUserInput {
 """Represents an update to a `User`. Fields that are set will be updated."""
 input UserPatch {
   id: Int
+  createdAt: Datetime
   email: String
   name: String
+  role: Role
+  profilePic: String
 }
 
 """All input for the `updateUserById` mutation."""
@@ -1237,57 +973,6 @@ input DeletePostInput {
 
 """All input for the `deletePostById` mutation."""
 input DeletePostByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: Int!
-}
-
-"""The output of our delete `Profile` mutation."""
-type DeleteProfilePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Profile` that was deleted by this mutation."""
-  profile: Profile
-  deletedProfileId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Profile`."""
-  userByUserId: User
-
-  """An edge for our `Profile`. May be used by Relay 1."""
-  profileEdge(
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProfilesEdge
-}
-
-"""All input for the `deleteProfile` mutation."""
-input DeleteProfileInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Profile` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteProfileById` mutation."""
-input DeleteProfileByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.

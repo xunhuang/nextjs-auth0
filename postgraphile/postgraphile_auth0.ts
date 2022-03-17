@@ -23,8 +23,6 @@ const app = express();
 // Apply checkJwt to our graphql endpoint
 app.use("/graphql", checkJwt);
 
-console.log(process.env);
-
 const pgConfig = {
   host: process.env.PGHOST || "localhost",
   user: process.env.PGUSER || "johndoe",
@@ -34,7 +32,7 @@ const pgConfig = {
 
 app.use(
   postgraphile(pgConfig, "public", {
-    watchPg: true,
+    // watchPg: true,
 
     enhanceGraphiql: true,
     graphiql: true,
@@ -45,11 +43,11 @@ app.use(
     showErrorStack: "json",
     extendedErrors: ["hint", "detail", "errcode"],
     // appendPlugins: [require("@graphile-contrib/pg-simplify-inflector")],
-    exportGqlSchemaPath: "schema.graphql",
+    exportGqlSchemaPath: "./schema.graphql",
 
     pgSettings: req => {
       const settings = {};
-      console.log(req.user.permissions);
+      // console.log(req.user.permissions);
       // if (req.user) {
       //   settings["user.permissions"] = req.user.scopes;
       // }
