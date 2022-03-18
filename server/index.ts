@@ -1,8 +1,8 @@
-const express = require('express');
-const next = require('next');
-const { postgraphile } = require("postgraphile");
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
+import express from 'express';
+import jwt from 'express-jwt';
+import jwksRsa from 'jwks-rsa';
+import next from 'next';
+import { postgraphile } from 'postgraphile';
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: true });
@@ -42,9 +42,9 @@ function postgraphile_component() {
     // appendPlugins: [require("@graphile-contrib/pg-simplify-inflector")],
     exportGqlSchemaPath: "./schema.graphql",
 
-    pgSettings: req => {
+    pgSettings: (req: any) => {
       const settings = {};
-      // console.log(req.user.permissions);
+      console.log(req.user.permissions);
       // if (req.user) {
       //   settings["user.permissions"] = req.user.scopes;
       // }
@@ -64,8 +64,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(port, (err) => {
-    if (err) throw err
+  server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   })
 }).catch(err => {

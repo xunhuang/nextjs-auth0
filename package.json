@@ -4,8 +4,7 @@
   "description": "Typescript example for nextjs-auth0",
   "main": "index.js",
   "scripts": {
-    "dev:local": "node server.js",
-    "dev": "next",
+    "dev": "nodemon",
     "build": "next build",
     "start": "next start",
     "db": "docker-compose up -d",
