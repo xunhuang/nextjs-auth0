@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 import Layout from '../components/layout';
-import useAccessToken from './use-accesstoken';
+import useAccessToken from '../components/use-accesstoken';
 
 // export default withPageAuthRequired(function Profile({ user, session }) {
 export default withPageAuthRequired(function Profile(p) {

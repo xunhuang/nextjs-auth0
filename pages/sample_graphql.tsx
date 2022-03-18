@@ -3,7 +3,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 import Layout from '../components/layout';
-import useAccessToken from './use-accesstoken';
+import useAccessToken from '../components/use-accesstoken';
 
 const QUERY = gql`
   query Countries {
