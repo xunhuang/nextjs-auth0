@@ -45,9 +45,14 @@ function postgraphile_component() {
     pgSettings: (req: any) => {
       const settings = {};
       console.log(req.user.permissions);
-      // if (req.user) {
-      //   settings["user.permissions"] = req.user.scopes;
-      // }
+      if (req.user) {
+        // this directly does "set Role xxxx" in Postgres SQL. this works
+        settings["role"] = req.user.permissions[0];
+        // following didn't work 
+        // settings["role"] = req.user.permissions;
+        // settings["role"] = req.user.permissions.join(" ");
+      }
+      console.dir(settings);
       return settings;
     },
   });
