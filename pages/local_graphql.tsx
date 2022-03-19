@@ -1,28 +1,13 @@
-import { gql, useQuery } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 import Layout from '../components/layout';
 import useAccessToken from '../components/use-accesstoken';
+import { useAllUsersQuery } from '../src/generated/graphql';
 
-const QUERY = gql`
-  query Users {
-    allUsers {
-      edges {
-        node {
-          id
-          email
-          name
-        }
-      }
-    }
-  }
-`;
-
-// export default withPageAuthRequired(function Profile({ user, session }) {
 export default withPageAuthRequired(function Profile(p) {
   const { accessToken } = useAccessToken();
-  const { loading, data, error } = useQuery(QUERY, {
+  const { loading, data, error } = useAllUsersQuery({
     context: { headers: { authorization: `Bearer ${accessToken}` } }
   });
 
@@ -47,15 +32,14 @@ export default withPageAuthRequired(function Profile(p) {
       {!accessToken && <p>nothing</p>}
 
       <div>
-        {countries.map((country) => {
-          console.log(country);
+        {countries.map((user) => {
           return (
-            <div key={country.code}>
+            <div key={user.node.id}>
               <h3>
                 <a href="#country-name" aria-hidden="true" id="country-name"></a>
-                {country.node.name}
+                {user.node.name}
               </h3>
-              <p>{country.node.email}</p>
+              <p>{user.node.email}</p>
             </div>
           );
         })}
