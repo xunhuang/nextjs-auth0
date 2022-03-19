@@ -52,6 +52,7 @@ export type CreatePostPayload = {
   userByAuthorId?: Maybe<User>;
 };
 
+
 /** The output of our create `Post` mutation. */
 export type CreatePostPayloadPostEdgeArgs = {
   orderBy?: InputMaybe<Array<PostsOrderBy>>;
@@ -84,6 +85,7 @@ export type CreatePrismaMigrationPayload = {
   query?: Maybe<Query>;
 };
 
+
 /** The output of our create `_PrismaMigration` mutation. */
 export type CreatePrismaMigrationPayload_PrismaMigrationEdgeArgs = {
   orderBy?: InputMaybe<Array<_PrismaMigrationsOrderBy>>;
@@ -115,6 +117,7 @@ export type CreateUserPayload = {
   /** An edge for our `User`. May be used by Relay 1. */
   userEdge?: Maybe<UsersEdge>;
 };
+
 
 /** The output of our create `User` mutation. */
 export type CreateUserPayloadUserEdgeArgs = {
@@ -161,6 +164,7 @@ export type DeletePostPayload = {
   userByAuthorId?: Maybe<User>;
 };
 
+
 /** The output of our delete `Post` mutation. */
 export type DeletePostPayloadPostEdgeArgs = {
   orderBy?: InputMaybe<Array<PostsOrderBy>>;
@@ -203,6 +207,7 @@ export type DeletePrismaMigrationPayload = {
   /** Our root query field type. Allows us to run any query from our mutation payload. */
   query?: Maybe<Query>;
 };
+
 
 /** The output of our delete `_PrismaMigration` mutation. */
 export type DeletePrismaMigrationPayload_PrismaMigrationEdgeArgs = {
@@ -247,6 +252,7 @@ export type DeleteUserPayload = {
   userEdge?: Maybe<UsersEdge>;
 };
 
+
 /** The output of our delete `User` mutation. */
 export type DeleteUserPayloadUserEdgeArgs = {
   orderBy?: InputMaybe<Array<UsersOrderBy>>;
@@ -287,75 +293,90 @@ export type Mutation = {
   updateUserById?: Maybe<UpdateUserPayload>;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreatePrismaMigrationArgs = {
   input: CreatePrismaMigrationInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePostArgs = {
   input: DeletePostInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePostByIdArgs = {
   input: DeletePostByIdInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePrismaMigrationArgs = {
   input: DeletePrismaMigrationInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePrismaMigrationByIdArgs = {
   input: DeletePrismaMigrationByIdInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteUserArgs = {
   input: DeleteUserInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteUserByIdArgs = {
   input: DeleteUserByIdInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePostArgs = {
   input: UpdatePostInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePostByIdArgs = {
   input: UpdatePostByIdInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePrismaMigrationArgs = {
   input: UpdatePrismaMigrationInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePrismaMigrationByIdArgs = {
   input: UpdatePrismaMigrationByIdInput;
 };
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput;
 };
+
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateUserByIdArgs = {
@@ -501,15 +522,18 @@ export type Query = Node & {
   userById?: Maybe<User>;
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type Query_PrismaMigrationArgs = {
   nodeId: Scalars['ID'];
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type Query_PrismaMigrationByIdArgs = {
   id: Scalars['String'];
 };
+
 
 /** The root query type which gives access points into the data universe. */
 export type QueryAllPostsArgs = {
@@ -522,6 +546,7 @@ export type QueryAllPostsArgs = {
   orderBy?: InputMaybe<Array<PostsOrderBy>>;
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type QueryAllPrismaMigrationsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
@@ -532,6 +557,7 @@ export type QueryAllPrismaMigrationsArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<_PrismaMigrationsOrderBy>>;
 };
+
 
 /** The root query type which gives access points into the data universe. */
 export type QueryAllUsersArgs = {
@@ -544,25 +570,30 @@ export type QueryAllUsersArgs = {
   orderBy?: InputMaybe<Array<UsersOrderBy>>;
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID'];
 };
+
 
 /** The root query type which gives access points into the data universe. */
 export type QueryPostArgs = {
   nodeId: Scalars['ID'];
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type QueryPostByIdArgs = {
   id: Scalars['Int'];
 };
 
+
 /** The root query type which gives access points into the data universe. */
 export type QueryUserArgs = {
   nodeId: Scalars['ID'];
 };
+
 
 /** The root query type which gives access points into the data universe. */
 export type QueryUserByIdArgs = {
@@ -617,6 +648,7 @@ export type UpdatePostPayload = {
   userByAuthorId?: Maybe<User>;
 };
 
+
 /** The output of our update `Post` mutation. */
 export type UpdatePostPayloadPostEdgeArgs = {
   orderBy?: InputMaybe<Array<PostsOrderBy>>;
@@ -662,6 +694,7 @@ export type UpdatePrismaMigrationPayload = {
   /** Our root query field type. Allows us to run any query from our mutation payload. */
   query?: Maybe<Query>;
 };
+
 
 /** The output of our update `_PrismaMigration` mutation. */
 export type UpdatePrismaMigrationPayload_PrismaMigrationEdgeArgs = {
@@ -709,6 +742,7 @@ export type UpdateUserPayload = {
   userEdge?: Maybe<UsersEdge>;
 };
 
+
 /** The output of our update `User` mutation. */
 export type UpdateUserPayloadUserEdgeArgs = {
   orderBy?: InputMaybe<Array<UsersOrderBy>>;
@@ -727,6 +761,7 @@ export type User = Node & {
   profilePic?: Maybe<Scalars['String']>;
   role: Role;
 };
+
 
 export type UserPostsByAuthorIdArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
@@ -921,32 +956,25 @@ export enum _PrismaMigrationsOrderBy {
   StartedAtDesc = 'STARTED_AT_DESC'
 }
 
-export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
+export type AllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type AllUsersQuery = {
-  __typename?: 'Query';
-  allUsers?: {
-    __typename?: 'UsersConnection';
-    edges: Array<{
-      __typename?: 'UsersEdge';
-      node: { __typename?: 'User'; id: number; email: string; name?: string | null };
-    }>;
-  } | null;
-};
+
+export type AllUsersQuery = { __typename?: 'Query', allUsers?: { __typename?: 'UsersConnection', edges: Array<{ __typename?: 'UsersEdge', node: { __typename?: 'User', id: number, email: string, name?: string | null } }> } | null };
+
 
 export const AllUsersDocument = gql`
-  query AllUsers {
-    allUsers {
-      edges {
-        node {
-          id
-          email
-          name
-        }
+    query AllUsers {
+  allUsers {
+    edges {
+      node {
+        id
+        email
+        name
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useAllUsersQuery__
@@ -964,13 +992,13 @@ export const AllUsersDocument = gql`
  * });
  */
 export function useAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<AllUsersQuery, AllUsersQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, options);
+      }
 export function useAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllUsersQuery, AllUsersQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllUsersQuery, AllUsersQueryVariables>(AllUsersDocument, options);
+        }
 export type AllUsersQueryHookResult = ReturnType<typeof useAllUsersQuery>;
 export type AllUsersLazyQueryHookResult = ReturnType<typeof useAllUsersLazyQuery>;
 export type AllUsersQueryResult = Apollo.QueryResult<AllUsersQuery, AllUsersQueryVariables>;
