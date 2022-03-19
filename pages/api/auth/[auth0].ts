@@ -23,6 +23,7 @@ const createUserIfNew = async (user: any) => {
                 email: user.email,
                 name: user.name,
                 profilePic: user.picture,
+                auth0Id: user.sub,
             },
         });
         console.dir(newuser, { depth: null })

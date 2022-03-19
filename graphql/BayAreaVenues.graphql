@@ -1,0 +1,10 @@
+query BayAreaVenues {
+  allVenues(first: 10, condition: { metro: "bayarea" }) {
+    nodes {
+      key
+      name
+      stars
+    }
+    totalCount
+  }
+}

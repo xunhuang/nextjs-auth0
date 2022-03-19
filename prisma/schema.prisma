@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +11,7 @@ model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
+  auth0Id   String   @unique
   name      String?
   role      Role     @default(USER)
   profilePic String?
@@ -33,4 +31,68 @@ model Post {
 enum Role {
   USER
   ADMIN
+}
+
+model venues {
+  accomondation              String?
+  address                    String?
+  area                       String?
+  autodetected               String?
+  bookatable_clientid        String?
+  bookatable_partnerCode     String?
+  bookingnotes               String?
+  businessId                 String?
+  businessid                 String?
+  city                       String?
+  close                      Boolean?
+  closehours                 String?
+  connectionid               String?
+  country                    String?
+  countryISO                 String?
+  coverImage                 String?
+  creationTime               String?
+  cuisine                    String?
+  currency                   String?
+  devnotes                   String?
+  distinction                String?
+  email                      String?
+  fulladdress                String?
+  guide                      String?
+  imageList                  String?
+  key                        String   @id
+  latitude                   Float?
+  localarea                  String?
+  localname                  String?
+  longitude                  Float?
+  menuurl                    String?
+  metro                      String?
+  michelinId                 String?
+  michelineOnlineReservation Boolean?
+  name                       String?
+  oldImages                  String?
+  openhours                  String?
+  otherReservation           String?
+  phone                      String?
+  priceline                  String?
+  realurl                    String?
+  region                     String?
+  reservation                String?
+  reservationHint            String?
+  reservationUrl             String?
+  resy_city_code             String?
+  resy_url_slug              String?
+  rsvp_support               String?
+  sf                         String?
+  showvenue                  Boolean?
+  stars                      String?
+  tags                       String?
+  timezone                   String?
+  tock_url_slug              String?
+  url                        String?
+  url_slug                   String?
+  withOnlineReservation      String?
+  workqueue                  String?
+  zip                        String?
+  vintage                    String?
+  street_usps                String?
 }
