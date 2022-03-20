@@ -52,7 +52,9 @@ function postgraphile_component() {
         // following didn't work 
         // settings["role"] = req.user.permissions;
         // settings["role"] = req.user.permissions.join(" ");
-        settings["role"] = req.user.permissions[0];
+        // settings["user_name"] = req.user.sub;
+        settings["user.user_id"] = req.user.sub;
+
       }
       console.dir(settings);
       return settings;

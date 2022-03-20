@@ -334,6 +334,28 @@ export type DeleteVenuePayloadVenueEdgeArgs = {
   orderBy?: InputMaybe<Array<VenuesOrderBy>>;
 };
 
+/** All input for the `isCurrentUserAdmin` mutation. */
+export type IsCurrentUserAdminInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+};
+
+/** The output of our `isCurrentUserAdmin` mutation. */
+export type IsCurrentUserAdminPayload = {
+  __typename?: 'IsCurrentUserAdminPayload';
+  boolean?: Maybe<Scalars['Boolean']>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   __typename?: 'Mutation';
@@ -361,6 +383,7 @@ export type Mutation = {
   deleteVenue?: Maybe<DeleteVenuePayload>;
   /** Deletes a single `Venue` using a unique key. */
   deleteVenueByKey?: Maybe<DeleteVenuePayload>;
+  isCurrentUserAdmin?: Maybe<IsCurrentUserAdminPayload>;
   /** Updates a single `Post` using its globally unique id and a patch. */
   updatePost?: Maybe<UpdatePostPayload>;
   /** Updates a single `Post` using a unique key and a patch. */
@@ -449,6 +472,12 @@ export type MutationDeleteVenueArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteVenueByKeyArgs = {
   input: DeleteVenueByKeyInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationIsCurrentUserAdminArgs = {
+  input: IsCurrentUserAdminInput;
 };
 
 
