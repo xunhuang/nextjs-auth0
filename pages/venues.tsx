@@ -5,7 +5,7 @@ import Layout from '../components/layout';
 import useAccessToken from '../components/use-accesstoken';
 import { useBayAreaVenuesQuery } from '../src/generated/graphql';
 
-export default withPageAuthRequired(function Profile(p) {
+export default withPageAuthRequired(function Profile() {
   const { accessToken } = useAccessToken();
   const { loading, data, error } = useBayAreaVenuesQuery({
     context: { headers: { authorization: `Bearer ${accessToken}` } }

@@ -33,4 +33,13 @@ http://localhost:3000/
 Login 
 
 Click sample graphql
-Click sample venues
+Click venues
+
+change the user from user to admin somehow
+
+See the venue list change 
+
+# after initial setup
+yarn db  # to start the the db
+yarn dev to start the dev server
+yarn generate to start the watch modeo of the .graphql file changes
