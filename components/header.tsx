@@ -30,8 +30,13 @@ const Header = (): React.ReactElement => {
           {user ? (
             <>
               <li>
+                <Link href="/venues">
+                  <a>Venues</a>
+                </Link>
+              </li>{' '}
+              <li>
                 <Link href="/local_graphql">
-                  <a>Sample Graphql</a>
+                  <a>Users</a>
                 </Link>
               </li>{' '}
               <li>
