@@ -1,13 +1,11 @@
 import express from 'express';
-import jwt from 'express-jwt';
-import jwksRsa from 'jwks-rsa';
 import next from 'next';
-import postgraphile from 'postgraphile';
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: true });
 const handle = app.getRequestHandler();
 
+/*
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -63,11 +61,12 @@ function postgraphile_component() {
   });
 }
 
+*/ 
 app.prepare().then(() => {
   const server = express();
 
-  server.use("/graphql", checkJwt);
-  server.use(postgraphile_component());
+  // server.use("/graphql", checkJwt);
+  // server.use(postgraphile_component());
 
   server.all('*', (req, res) => {
     return handle(req, res);
