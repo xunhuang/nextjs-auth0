@@ -35,7 +35,8 @@ const createUserIfNew = async (user: any) => {
 
 const afterCallback = async (req, res, session) => {
     if (session.user) {
-        createUserIfNew(session.user);
+        console.log("creating new user");
+        await createUserIfNew(session.user);
     }
     return session;
 };
