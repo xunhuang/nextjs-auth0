@@ -45,6 +45,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.2.11",
     "@prisma/client": "^3.10.0",
     "@serverless-jwt/next": "^0.2.1",
+    "apollo-link-context": "^1.0.20",
     "cross-env": "^7.0.3",
     "express-jwt": "^6.1.1",
     "graphql": "^15.8.0",

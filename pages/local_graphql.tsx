@@ -2,14 +2,10 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 import Layout from '../components/layout';
-import useAccessToken from '../components/use-accesstoken';
 import { useAllUsersQuery } from '../src/generated/graphql';
 
-
-const Abc = ({ accessToken, p }: any) => {
-  const { loading, data, error } = useAllUsersQuery({
-    context: { headers: { authorization: `Bearer ${accessToken}` } }
-  });
+export default withPageAuthRequired(function Profile(p) {
+  const { loading, data, error } = useAllUsersQuery();
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -28,9 +24,6 @@ const Abc = ({ accessToken, p }: any) => {
       <h1>Profile</h1>
       <h4>Profile</h4>
       <pre data-testid="profile">{JSON.stringify(p.user, null, 2)}</pre>
-      {accessToken && <p>{accessToken}</p>}
-      {!accessToken && <p>nothing</p>}
-
       <div>
         {countries.map((user) => {
           return (
@@ -46,12 +39,4 @@ const Abc = ({ accessToken, p }: any) => {
       </div>
     </Layout>
   );
-};
-
-export default withPageAuthRequired(function Profile(p) {
-  const { accessToken } = useAccessToken();
-  if (accessToken) {
-    return <Abc accessToken={accessToken} p={p} />;
-  }
-  return <h2>Loading...</h2>;
 });

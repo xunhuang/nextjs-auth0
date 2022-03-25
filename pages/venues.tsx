@@ -2,14 +2,10 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 import Layout from '../components/layout';
-import useAccessToken from '../components/use-accesstoken';
 import { useBayAreaVenuesQuery } from '../src/generated/graphql';
 
 export default withPageAuthRequired(function Profile() {
-  const { accessToken } = useAccessToken();
-  const { loading, data, error } = useBayAreaVenuesQuery({
-    context: { headers: { authorization: `Bearer ${accessToken}` } }
-  });
+  const { loading, data, error } = useBayAreaVenuesQuery();
 
   if (loading) {
     return <h2>Loading...</h2>;
