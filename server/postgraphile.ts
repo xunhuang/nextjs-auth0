@@ -20,21 +20,21 @@ export default postgraphile(
     graphqlRoute: "/api/graphql",
     graphiqlRoute: "/api/graphiql",
 
-    // pgSettings: (req: any) => {
-    //   const settings = {};
-    //   console.log(req.user.permissions);
-    //   // console.log(req);
-    //   if (req.user) {
-    //     // this directly does "set Role xxxx" in Postgres SQL. this works
-    //     settings["role"] = req.user.permissions[0];
-    //     // following didn't work 
-    //     // settings["role"] = req.user.permissions;
-    //     // settings["role"] = req.user.permissions.join(" ");
-    //     // settings["user_name"] = req.user.sub;
-    //     settings["user.user_id"] = req.user.sub;
-    //   }
-    //   console.dir(settings);
-    //   return settings;
-    // },
+    pgSettings: (req: any) => {
+      const settings = {};
+      console.log(req.user.permissions);
+      // console.log(req);
+      if (req.user) {
+        // this directly does "set Role xxxx" in Postgres SQL. this works
+        settings["role"] = req.user.permissions[0];
+        // following didn't work 
+        // settings["role"] = req.user.permissions;
+        // settings["role"] = req.user.permissions.join(" ");
+        // settings["user_name"] = req.user.sub;
+        settings["user.user_id"] = req.user.sub;
+      }
+      console.dir(settings);
+      return settings;
+    },
   }
 );
