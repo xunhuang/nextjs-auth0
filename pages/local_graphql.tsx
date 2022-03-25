@@ -5,8 +5,8 @@ import Layout from '../components/layout';
 import useAccessToken from '../components/use-accesstoken';
 import { useAllUsersQuery } from '../src/generated/graphql';
 
-export default withPageAuthRequired(function Profile(p) {
-  const { accessToken } = useAccessToken();
+
+const Abc = ({ accessToken, p }: any) => {
   const { loading, data, error } = useAllUsersQuery({
     context: { headers: { authorization: `Bearer ${accessToken}` } }
   });
@@ -46,4 +46,12 @@ export default withPageAuthRequired(function Profile(p) {
       </div>
     </Layout>
   );
+};
+
+export default withPageAuthRequired(function Profile(p) {
+  const { accessToken } = useAccessToken();
+  if (accessToken) {
+    return <Abc accessToken={accessToken} p={p} />;
+  }
+  return <h2>Loading...</h2>;
 });

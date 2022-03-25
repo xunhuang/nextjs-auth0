@@ -17,6 +17,7 @@ const checkJwt = jwt({
   issuer: `https://dev-4q8dshdr.us.auth0.com/`,
   algorithms: ["RS256"],
 });
+console.log(checkJwt)
 
 function postgraphile_component() {
   // const pgConfig = {
