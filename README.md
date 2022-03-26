@@ -1,3 +1,20 @@
+Project Goal
+
+Starter project to demonstrate the following concepts:
+
+- Nextjs with Auth0 as IDP to support authentication 
+- Prisma as a DB schema management tool. 
+-- Prisma to management schema changes, auto-generate migration scripts
+-- Prisma client to interact with DB as an ORM layer
+-- Does not deal with product DB data 
+- Postgres as local DB as docker container  
+- Postgraphile to serve postgres DB as GraphQL server
+- Middle tier to interact with Auth0 to validate JWT token with role/user information
+- Postgres Role-base Authorization (RBAC) and Row-level Security. Role is extracted from jwt from above. 
+- Nextjs to use Postgraphile as middle tier, deployable to vercel (which supports CI with github)
+- Postgraphile with graphiql as playground. 
+- Automatic codegen from graphql query to typescript in watch mode.
+
 One time setup
 
 yarn install
