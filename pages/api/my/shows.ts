@@ -1,25 +1,22 @@
-import { NextJwtVerifier } from '@serverless-jwt/next';
 import { NextAuthenticatedApiRequest } from '@serverless-jwt/next/dist/types';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-const verifyJwt = NextJwtVerifier({
-  issuer: process.env.AUTH0_ISSUER_BASE_URL,
-  audience: process.env.AUTH0_AUDIENCE
-});
+import runMiddleware from '../../../server/runMiddleware';
+import { checkJwt } from '../checkJwt';
 
 const requireScope = (scope: string, apiRoute: NextApiHandler) =>
-  verifyJwt(async (req: NextAuthenticatedApiRequest, res) => {
-    const { claims } = req.identityContext;
-    if (!claims || !claims.scope || (claims.scope as string).indexOf(scope) === -1) {
+  async (req: NextAuthenticatedApiRequest, res) => {
+    await runMiddleware(req, res, checkJwt);
+    if (!req["user"].permissions.includes(scope)) {
       return res.status(403).json({
         error: 'access_denied',
         error_description: `Token does not contain the required '${scope}' scope`
       });
     }
     return apiRoute(req, res);
-  });
+  };
 
-const apiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
+const apiRoute = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
     const response = await fetch('https://api.tvmaze.com/search/shows?q=identity');
     const shows = await response.json();
