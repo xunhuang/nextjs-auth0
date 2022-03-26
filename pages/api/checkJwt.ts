@@ -6,9 +6,9 @@ export const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://dev-4q8dshdr.us.auth0.com/.well-known/jwks.json`,
+    jwksUri: `${process.env.AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`,
   }),
-  audience: "ablslsdhwheshss",
-  issuer: `https://dev-4q8dshdr.us.auth0.com/`,
+  audience: process.env.AUTH0_AUDIENCE,
+  issuer: process.env.AUTH0_ISSUER_BASE_URL + '/', // unbelievable, but this is the only way to get it to work
   algorithms: ["RS256"],
 });
