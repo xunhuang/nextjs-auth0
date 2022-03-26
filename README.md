@@ -14,6 +14,7 @@ Starter project to demonstrate the following concepts:
 - Nextjs to use Postgraphile as middle tier, deployable to vercel (which supports CI with github)
 - Postgraphile with graphiql as playground. 
 - Automatic codegen from graphql query to typescript in watch mode.
+- nodemon usage
 
 One time setup
 
@@ -60,3 +61,11 @@ See the venue list change
 yarn db  # to start the the db
 yarn dev to start the dev server
 yarn generate to start the watch modeo of the .graphql file changes
+
+
+# References
+- https://github.com/auth0/nextjs-auth0/tree/main/examples/kitchen-sink-example
+- https://www.graphile.org/postgraphile/jwk-verification/ 
+- https://thihara.github.io/GraphQL-With-Postgraphile/ 
+- https://github.com/Flux159/next-postgraphile 
+- https://www.prisma.io/docs/getting-started/quickstart 

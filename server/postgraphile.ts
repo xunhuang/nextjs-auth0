@@ -15,25 +15,22 @@ export default postgraphile(
     ignoreRBAC: false,
     showErrorStack: "json",
     extendedErrors: ["hint", "detail", "errcode"],
-    // appendPlugins: [require("@graphile-contrib/pg-simplify-inflector")],
     exportGqlSchemaPath: "./schema.graphql",
     graphqlRoute: "/api/graphql",
     graphiqlRoute: "/api/graphiql",
 
     pgSettings: (req: any) => {
       const settings = {};
-      console.log(req.user.permissions);
-      // console.log(req);
       if (req.user) {
         // this directly does "set Role xxxx" in Postgres SQL. this works
-        settings["role"] = req.user.permissions[0];
+        settings["role"] = req.user.permissions[0]; // might throw if no permissions
         // following didn't work 
         // settings["role"] = req.user.permissions;
         // settings["role"] = req.user.permissions.join(" ");
         // settings["user_name"] = req.user.sub;
         settings["user.user_id"] = req.user.sub;
       }
-      console.dir(settings);
+      console.log("pgSettings derived from jwt", settings);
       return settings;
     },
   }

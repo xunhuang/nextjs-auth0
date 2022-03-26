@@ -5,9 +5,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import postgraphile from '../../server/postgraphile';
 import runMiddleware from '../../server/runMiddleware';
 
-// GraphQL route that handles queries
-
-
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -20,13 +17,10 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-
+// GraphQL route that handles queries
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200;
-  console.log("try to run middleware");
   await runMiddleware(req, res, checkJwt);
-
-  console.log("Gooooooood this time");
   await runMiddleware(req, res, postgraphile);
   res.end();
 };
